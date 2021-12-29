@@ -1,6 +1,6 @@
 {
     "functions": {
-        "index.js": {
+        "import.js": {
             "includeFiles": "api/**"
         }
     }
