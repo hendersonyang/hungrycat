@@ -3,12 +3,12 @@ module.exports = {
         return [
             {
                 source: '/',
-                destination: '/api/',
+                destination: '/api',
                 permanent: true,
             },
             {
-                source: '/:path',
-                destination: '/api/:path',
+                source: '/feed',
+                destination: '/api/feed',
                 permanent: true,
             }
         ]
