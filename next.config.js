@@ -7,7 +7,7 @@ module.exports = {
                 permanent: true,
             }, {
                 source: '/',
-                destination: '/api',
+                destination: '/api/',
                 permanent: true,
             },
         ]
