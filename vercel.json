@@ -1,7 +1,0 @@
-{
-    "functions": {
-        "import.js": {
-            "includeFiles": "api/**"
-        }
-    }
-}
