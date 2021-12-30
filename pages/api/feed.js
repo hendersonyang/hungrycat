@@ -1,7 +1,7 @@
 var count = 0;
 const MongoClient = require('mongodb').MongoClient
 
-MongoClient(process.env.mongo, { useUnifiedTopology: true, useNewUrlParser: true }).connect(async (err, DB) => {
+MongoClient(process.env.mongo_1, { useUnifiedTopology: true, useNewUrlParser: true }).connect(async (err, DB) => {
     if (err) throw err;
     console.log("Sucessfully conected to DB!")
 
