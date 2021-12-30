@@ -1,6 +1,10 @@
-var count = 0;
 const MongoClient = require('mongodb').MongoClient
+const axios = require("axios")
 
+var count = 0;
+var oldCount = 0;
+
+/*
 MongoClient(process.env.mongo_1, { useUnifiedTopology: true, useNewUrlParser: true }).connect(async (err, DB) => {
     if (err) throw err;
     console.log("Sucessfully conected to DB!")
@@ -22,6 +26,20 @@ MongoClient(process.env.mongo_1, { useUnifiedTopology: true, useNewUrlParser: tr
         })
     }, 10000)
 })
+*/
+
+axios.post(`https://counter.hendersonyang.repl.co/currentcount&key=${process.env.key}`).then(res=>{
+    count = Number(res.data)
+    oldCount = Number(res.data)
+}).catch(error=>{
+    count = 0
+    oldCount = 0
+})
+setInterval(()=>{
+    if (count - oldCount > 0) {
+        axios.post(`https://counter.hendersonyang.repl.co/countincrease?increase=${count-oldCount}&key=${process.env.key}`)
+    }
+}, 10000)
 
 export default function handler(req, res) {
     count++
