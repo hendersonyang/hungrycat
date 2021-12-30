@@ -11,7 +11,7 @@ MongoClient(process.env.mongo, { useUnifiedTopology: true, useNewUrlParser: true
     let stat = await stats.findOne({
         type: "global"
     });
-    count = stat.count || 0
+    count = stat.count
     setInterval(() => {
         stats.updateOne({
             type: "global"
