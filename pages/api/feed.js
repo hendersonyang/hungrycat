@@ -3,7 +3,7 @@ const axios = require("axios")
 var count = 0;
 var oldCount = 0;
 
-axios.post(`https://counter.hendersonyang.repl.co/currentcount?key=${process.env.key}&v=a`).then(res => {
+axios.post(`https://counter.hendersonyang.repl.co/currentcount?key=${process.env.key}&v=b`).then(res => {
     count = Number(res.data)
     oldCount = Number(res.data)
 }).catch(error => {
@@ -13,7 +13,7 @@ axios.post(`https://counter.hendersonyang.repl.co/currentcount?key=${process.env
 setInterval(() => {
     let tempcount = count
     if (tempcount - oldCount > 0) {
-        axios.post(`https://counter.hendersonyang.repl.co/countincrease?increase=${tempcount - oldCount}&key=${process.env.key}&v=a`)
+        axios.post(`https://counter.hendersonyang.repl.co/countincrease?increase=${tempcount - oldCount}&key=${process.env.key}&v=b&count=${tempcount}`)
         oldCount = tempcount
     }
 }, 10000)
