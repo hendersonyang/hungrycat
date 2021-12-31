@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient
 const axios = require("axios")
+const NextCors = require("nextjs-cors")
 
 var count = 0;
 var oldCount = 0;
@@ -49,6 +50,12 @@ setInterval(() => {
 }, 10000)
 
 export default function handler(req, res) {
+    await NextCors(req, res, {
+        // Options
+        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+        origin: '*',
+        optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    });
     count++
     res.status(200).send(`You fed me 1 fish and I am still hungry. I have ate ${count} fishes so far.`);
 }
