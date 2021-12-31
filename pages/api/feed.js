@@ -1,6 +1,5 @@
 const MongoClient = require('mongodb').MongoClient
 const axios = require("axios")
-const NextCors = require("nextjs-cors")
 
 var count = 0;
 var oldCount = 0;
@@ -50,12 +49,17 @@ setInterval(() => {
 }, 10000)
 
 export default async function handler(req, res) {
-    await NextCors(req, res, {
-        // Options
-        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-        origin: '*',
-        optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-    });
+    res.setHeader('Access-Control-Allow-Credentials', true)
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    )
+    if (req.method === 'OPTIONS') {
+      res.status(200).end()
+      return
+    }
     count++
     res.status(200).send(`You fed me 1 fish and I am still hungry. I have ate ${count} fishes so far.`);
 }
