@@ -1,34 +1,9 @@
-const MongoClient = require('mongodb').MongoClient
 const axios = require("axios")
 
 var count = 0;
 var oldCount = 0;
 
-/*
-MongoClient(process.env.mongo_1, { useUnifiedTopology: true, useNewUrlParser: true }).connect(async (err, DB) => {
-    if (err) throw err;
-    console.log("Sucessfully conected to DB!")
-
-    const Database = DB.db('Main')
-    const stats = Database.collection('Stats')
-
-    let stat = await stats.findOne({
-        type: "global"
-    });
-    count = stat.count
-    setInterval(() => {
-        stats.updateOne({
-            type: "global"
-        }, {
-            $set: {
-                count: count
-            }
-        })
-    }, 10000)
-})
-*/
-
-axios.post(`https://counter.hendersonyang.repl.co/currentcount?key=${process.env.key}`).then(res => {
+axios.post(`https://counter.hendersonyang.repl.co/currentcount?key=${process.env.key}&v=a`).then(res => {
     count = Number(res.data)
     oldCount = Number(res.data)
 }).catch(error => {
@@ -38,7 +13,7 @@ axios.post(`https://counter.hendersonyang.repl.co/currentcount?key=${process.env
 setInterval(() => {
     let tempcount = count
     if (tempcount - oldCount > 0) {
-        axios.post(`https://counter.hendersonyang.repl.co/countincrease?increase=${tempcount - oldCount}&key=${process.env.key}`)
+        axios.post(`https://counter.hendersonyang.repl.co/countincrease?increase=${tempcount - oldCount}&key=${process.env.key}&v=a`)
         oldCount = tempcount
     }
 }, 10000)
