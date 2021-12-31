@@ -38,13 +38,7 @@ axios.post(`https://counter.hendersonyang.repl.co/currentcount?key=${process.env
 setInterval(() => {
     if (count - oldCount > 0) {
         axios.post(`https://counter.hendersonyang.repl.co/countincrease?increase=${count - oldCount}&key=${process.env.key}`)
-        axios.post(`https://counter.hendersonyang.repl.co/currentcount?key=${process.env.key}`).then(res => {
-            count = Number(res.data)
-            oldCount = Number(res.data)
-        }).catch(error => {
-            count = 0
-            oldCount = 0
-        })
+        oldCount = count
     }
 }, 10000)
 
