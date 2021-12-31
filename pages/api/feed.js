@@ -3,23 +3,21 @@ const axios = require("axios")
 var count = 0;
 var oldCount = 0;
 
-function sync() {
-    axios.post(`https://counter.hendersonyang.repl.co/currentcount?key=${process.env.key}&v=d`).then(res => {
-        count = Number(res.data)
-        oldCount = Number(res.data)
-    }).catch(error => {
-        count = 0
-        oldCount = 0
-    })
-}
+axios.post(`https://counter.hendersonyang.repl.co/currentcount?key=${process.env.key}&v=e`).then(res => {
+    count = Number(res.data)
+    oldCount = Number(res.data)
+}).catch(error => {
+})
+
 setInterval(() => {
-    let tempcount = count
-    if (tempcount - oldCount > 0) {
-        axios.post(`https://counter.hendersonyang.repl.co/countincrease?increase=${tempcount - oldCount}&key=${process.env.key}&v=d&count=${tempcount}`)
-        oldCount = tempcount
-        sync()
+    if (count - oldCount > 0) {
+        axios.post(`https://counter.hendersonyang.repl.co/countincrease?increase=${count - oldCount}&key=${process.env.key}&v=e&count=${tempcount}`).then(res => {
+            count = Number(res.data)
+            oldCount = Number(res.data)
+        }).catch(error => {
+        })
     }
-}, 10000)
+}, 1000)
 
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', true)
@@ -36,4 +34,3 @@ export default async function handler(req, res) {
     count++
     res.status(200).send(`You fed me 1 fish and I am still hungry. I have ate ${count} fishes so far.`);
 }
-sync()
