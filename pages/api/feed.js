@@ -4,18 +4,16 @@ var count = 0;
 var oldCount = 0;
 
 function sync() {
-    axios.post(`https://counter.hendersonyang.repl.co/currentcount?key=${process.env.key}&v=d`).then(res => {
+    axios.post(`https://counter.hendersonyang.repl.co/currentcount?key=${process.env.key}&v=f`).then(res => {
         count = Number(res.data)
         oldCount = Number(res.data)
     }).catch(error => {
-        count = 0
-        oldCount = 0
     })
 }
 setInterval(() => {
     let tempcount = count
     if (tempcount - oldCount > 0) {
-        axios.post(`https://counter.hendersonyang.repl.co/countincrease?increase=${tempcount - oldCount}&key=${process.env.key}&v=d&count=${tempcount}`)
+        axios.post(`https://counter.hendersonyang.repl.co/countincrease?increase=${tempcount - oldCount}&key=${process.env.key}&v=f&count=${tempcount}`)
         oldCount = tempcount
         sync()
     }
